@@ -21,6 +21,8 @@ EXERCISES:
 
 6) SELECT address, city, country, store_id from store, city, address, country WHERE store.address_id = address.address_id AND address.city_id = city.city_id AND city.country_id = country.country_id AND store.store_id = 1;
 
-7) SELECT DISTINCT f1.title , f2.title, f1.rating, f2.rating FROM film f1, film f2 WHERE f1.rating = f2.rating;
+7) SELECT DISTINCT f1.title , f2.title, f1.rating, f2.rating FROM film f1, film f2 WHERE f1.rating = f2.rating AND f1.film_id <> f2.film_id;
 
 8) SELECT DISTINCT film.title, staff.first_name, staff.last_name FROM film, inventory, store, staff WHERE film.film_id = inventory.film_id AND store.store_id = inventory.store_id AND store.store_id = 2 AND staff.staff_id = store.manager_staff_id;
+
+
