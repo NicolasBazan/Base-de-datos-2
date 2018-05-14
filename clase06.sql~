@@ -27,7 +27,7 @@ ORDER BY last_name;
 6)SELECT first_name, last_name
 	FROM actor 
 	WHERE actor_id IN(SELECT actor.actor_id from film_actor,film,actor where actor.actor_id=film_actor.actor_id AND film.film_id=film_actor.film_id AND film.title ='BETRAYED REAR') 
-	AND actor_id IN(SELECT actor.actor_id from film_actor,film,actor where actor.actor_id=film_actor.actor_id AND film.film_id=film_actor.film_id AND film.title ='CATCH AMISTAD'); 
+	AND actor_id IN(SELECT actor.actor_id from film_actor,film,actor where actor.actor_id=film_actor.actor_id AND film.film_id=film_actor.film_id AND film.title ='CATCH AMISTAD') 
 
 7)SELECT first_name, last_name FROM actor
 	WHERE actor_id 
