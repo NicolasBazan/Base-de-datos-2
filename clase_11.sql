@@ -56,7 +56,7 @@ FROM customer c
 		ON 	r.inventory_id = i.inventory_id
 	INNER JOIN film f
 		ON i.film_id = f.film_id
-#WHERE r.return_date IS NOT NULL
+WHERE r.return_date IS NOT NULL
 ORDER BY c.store_id, c.last_name;
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 #7
@@ -71,4 +71,36 @@ FROM store st
 GROUP BY st.store_id;
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 #8
+SELECT f.rating, SUM(p.amount)
+FROM film f
+	INNER JOIN inventory i USING(film_id)
+	INNER JOIN rental r USING(inventory_id)
+	INNER JOIN payment p USING(rental_id)
+GROUP BY f.rating;
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+#9
+SELECT a.first_name, COUNT(*) AS count
+FROM actor a
+	INNER JOIN film_actor USING(actor_id)
+	INNER JOIN film USING(film_id)
+GROUP BY a.first_name
+ORDER BY count DESC
+LIMIT 1;
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+#10
+# DESC list w/ category highest films average
+SELECT c.name, AVG(f.length) as average
+FROM category c
+	INNER JOIN film_category fc USING(category_id)
+	INNER JOIN film f USING(film_id)
+GROUP BY c.name
+ORDER BY average DESC;
 
+# DESC list w/ category highest films legth
+SELECT c.name, MAX(f.length) as max_filmLength
+FROM category c
+	INNER JOIN film_category fc USING(category_id)
+	INNER JOIN film f USING(film_id)
+GROUP BY c.name
+ORDER BY max_filmLength DESC;
+----------------------------------------------------------------------------------------------------------------------------------------------------------
