@@ -30,13 +30,11 @@ UPDATE rental SET return_date = CURRENT_DATE() WHERE rental_id = 11611;
 
 #5
 DELETE FROM inventory WHERE film_id=1;
-DELETE payment 
-FROM rental 
+DELETE payment FROM rental 
 INNER JOIN payment USING (rental_id)
 INNER JOIN inventory USING (inventory_id)
 WHERE film_id = 1;
-DELETE rental
-FROM inventory
+DELETE rental FROM inventory
 INNER JOIN rental USING (inventory_id)
 WHERE film_id = 1;
 DELETE film_actor FROM film_actor WHERE film_id = 1;
@@ -44,6 +42,3 @@ DELETE film_category FROM film_category WHERE film_id = 1;
 DELETE film FROM film WHERE film_id = 1;
 
 #6
-SELECT inventory_id FROM inventory
-INNER JOIN rental USING(inventory_id)
-WHERE return_date IS NOT NULL;
