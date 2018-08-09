@@ -16,10 +16,24 @@ INNER JOIN film_actor USING(film_id)
 INNER JOIN actor USING(actor_id)
 GROUP BY 1,4;
  
-#3 NOT WORKING
-SELECT category.name, payment.ammount FROM category 
+#3
+CREATE VIEW sales_by_film_category AS
+SELECT category.name, SUM(payment.amount) as total_rental FROM category 
 INNER JOIN film_category USING(category_id)
+INNER JOIN film USING(film_id)
 INNER JOIN inventory USING(film_id)
-INNER JOIN rental USING(film_id)
-INNER JOIN payment USING(rental_id);
+INNER JOIN rental USING(inventory_id)
+INNER JOIN payment USING(rental_id)
+GROUP BY 1;
 
+#4
+CREATE VIEW actor_information AS
+SELECT a.actor_id, a.first_name, a.last_name, count(DISTINCT film_id) FROM actor a
+INNER JOIN film_actor fa USING(actor_id)
+INNER JOIN film USING(film_id)
+INNER JOIN inventory USING(film_id)
+INNER JOIN rental USING(inventory_id)
+INNER JOIN payment USING(rental_id)
+GROUP BY 1,2,3;
+
+#5
