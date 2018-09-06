@@ -26,7 +26,8 @@ employee and use trigger(s) to keep the date-time
 updated on inserts and updates operations. Bonus: 
 add a column lastUpdateUser and the respective trigger(s) 
 to specify who was the last MySQL user that changed the row 
-(assume multiple users, other than root, can connect to MySQL and change this table).
+(assume multiple users, other than root, can connect to MySQL 
+and change this table).
 
 ALTER TABLE employees ADD lastUpdate datetime;
 
@@ -38,3 +39,5 @@ BEGIN
 	UPDATE employees SET NEW.lastUpdate=NOW();
 END$$
 DELIMITER ;
+
+ERROR 1442 (HY000): Can't update table 'employees' in stored function/trigger because it is already used by statement which invoked this stored function/trigger.
