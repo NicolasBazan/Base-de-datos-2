@@ -19,9 +19,10 @@ FROM film
 INNER JOIN language USING(language_id);
 
 #3
-SELECT TRIM(LOWER(title)), release_year, first_name FROM film 
+SELECT title, release_year, first_name FROM film 
 INNER JOIN film_actor USING(film_id)
-INNER JOIN actor USING(actor_id);
+INNER JOIN actor USING(actor_id)
+WHERE TRIM(LOWER(first_name)) LIKE TRIM(LOWER('julia'));
 
 #4
 SELECT title, CONCAT(first_name, " ", last_name) as Nombre, 
@@ -31,7 +32,7 @@ FROM rental
 INNER JOIN inventory USING(inventory_id)
 INNER JOIN film USING(film_id)
 INNER JOIN customer USING(customer_id)
-WHERE MONTH(rental_date)=5 OR MONTH(rental_date)=6;
+WHERE MONTH(rental_date) IN (5,6);
 
 #5
 CAST:
