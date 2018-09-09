@@ -29,7 +29,7 @@ to specify who was the last MySQL user that changed the row
 (assume multiple users, other than root, can connect to MySQL 
 and change this table).
 
-ALTER TABLE employees ADD lastUpdate datetime;
+ALTER TABLE employees ADD lastUpdate timestamp;
 
 DELIMITER $$
 CREATE TRIGGER updateEmployee
@@ -40,4 +40,18 @@ BEGIN
 END$$
 DELIMITER ;
 
-ERROR 1442 (HY000): Can't update table 'employees' in stored function/trigger because it is already used by statement which invoked this stored function/trigger.
+ERROR 1442 (HY000): 
+Can't update table 'employees' in stored function/trigger because 
+it is already used by statement which invoked this stored function/trigger.'
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS lastUpdate_employee $$
+CREATE TRIGGER lastUpdate_employee
+BEFORE UPDATE
+   ON employees FOR EACH ROW
+BEGIN
+	SET new.lastUpdate = CURRENT_TIMESTAMP;
+END$$
+DELIMITER ;
+
+UPDATE employees SET age=18 WHERE lastName="Bazan";
